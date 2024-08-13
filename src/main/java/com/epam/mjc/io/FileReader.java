@@ -28,7 +28,7 @@ public class FileReader {
             throw new Exception("Key not found!");
         }
 
-        int tailIdx = text.substring(keyIdx).indexOf("\r\n") + keyIdx;
+        int tailIdx = text.substring(keyIdx).indexOf(System.lineSeparator()) + keyIdx;
         if (tailIdx < keyIdx) {
             throw new Exception("Info not found!");
         }
@@ -52,5 +52,22 @@ public class FileReader {
         }
 
         return profile;
+    }
+
+    private final static String FILE = "src\\main\\resources\\Profile.txt";
+
+    public static void main(String[] args) {
+        try {
+            File file = new File(FILE);
+            if(!file.exists() || !file.isFile()) {
+                throw new Exception("File not found!");
+            }
+
+            FileReader fileReader = new FileReader();
+            Profile profile = fileReader.getDataFromFile(file);
+            System.out.println(profile.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
