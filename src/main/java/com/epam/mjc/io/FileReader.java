@@ -53,21 +53,4 @@ public class FileReader {
 
         return profile;
     }
-
-    private final static String FILE = "src\\main\\resources\\Profile.txt";
-
-    public static void main(String[] args) {
-        try {
-            File file = new File(FILE);
-            if(!file.exists() || !file.isFile()) {
-                throw new Exception("File not found!");
-            }
-
-            FileReader fileReader = new FileReader();
-            Profile profile = fileReader.getDataFromFile(file);
-            System.out.println(profile.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
