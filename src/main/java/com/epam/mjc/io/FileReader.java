@@ -1,6 +1,6 @@
 package com.epam.mjc.io;
 
-import com.epam.mjc.io.exceptions.InformationNotFound;
+import com.epam.mjc.io.exceptions.InformationNotFoundException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,15 +24,15 @@ public class FileReader {
         return s.toString();
     }
 
-    private String getInfoByKey(String key, String text) throws InformationNotFound {
+    private String getInfoByKey(String key, String text) throws InformationNotFoundException {
         int keyIdx = text.indexOf(key) + key.length();
         if (keyIdx < 0) {
-            throw new InformationNotFound("Key [" + key + "] not found.");
+            throw new InformationNotFoundException("Key [" + key + "] not found.");
         }
 
         int tailIdx = text.indexOf(System.lineSeparator(), keyIdx);
         if (tailIdx < keyIdx) {
-            throw new InformationNotFound("key-value not found.");
+            throw new InformationNotFoundException("key-value not found.");
         }
 
         return text.substring(keyIdx, tailIdx);
@@ -49,7 +49,7 @@ public class FileReader {
                 getInfoByKey("Email: ", s),
                 Long.valueOf(getInfoByKey("Phone: ", s))
             );
-        } catch (IOException | InformationNotFound e) {
+        } catch (IOException | InformationNotFoundException e) {
             e.printStackTrace();
         }
 
